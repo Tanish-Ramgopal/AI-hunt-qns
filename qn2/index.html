@@ -1,1 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Encrypted Media Artifact</title>
 
+<style>
+body {
+    background-color: black;
+    color: #00ff00;
+    font-family: monospace;
+    padding: 60px;
+    user-select: none;
+}
+input {
+    background: black;
+    color: #00ff00;
+    border: 1px solid #00ff00;
+    padding: 6px;
+    margin-top: 10px;
+}
+button {
+    background: #00ff00;
+    color: black;
+    padding: 6px 12px;
+    border: none;
+    cursor: pointer;
+    margin-left: 5px;
+}
+#terminal {
+    white-space: pre-wrap;
+}
+a {
+    color: #00ff00;
+}
+</style>
+
+</head>
+<body>
+
+<div id="terminal">
+> Encrypted Media Artifact Detected:
+> Qhyhu jrqqd jlyh brx xs
+
+> Cipher: Roman Shift of 3
+
+> Decode to proceed.
+</div>
+
+<br>
+
+<input type="text" id="stage1" placeholder="Enter Decoded Title">
+<button onclick="decodeCheck()">Submit</button>
+
+<div id="stage2"></div>
+<div id="stage3"></div>
+<div id="final"></div>
+
+<script>
+
+document.addEventListener("contextmenu", e => e.preventDefault());
+
+document.onkeydown = function(e) {
+    if (e.keyCode === 123) return false;
+    if (e.ctrlKey && e.shiftKey && e.keyCode === 73) return false;
+    if (e.ctrlKey && e.shiftKey && e.keyCode === 74) return false;
+    if (e.ctrlKey && e.keyCode === 85) return false;
+};
+
+function decodeCheck(){
+    let input = document.getElementById("stage1").value.trim().toLowerCase();
+    if(input === "never gonna give you up"){
+        document.getElementById("stage2").innerHTML = `
+
+> Media Identified.
+> Source Link:
+> <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">
+> https://www.youtube.com/watch?v=dQw4w9WgXcQ
+> </a>
+
+> Temporal Key Initiated...
+
+> 00:0(2^3 - 5):?
+> Last digit = vowel count of decoded title
+
+`;
+        showTimestampStage();
+    } else {
+        alert("ACCESS DENIED");
+    }
+}
+
+function showTimestampStage(){
+    document.getElementById("stage3").innerHTML = `
+
+> At the computed timestamp,
+> extract the THIRD word spoken.
+
+> Invert the word.
+> Append its length squared.
+
+> Restore fragment:
+<br>
+<input type="text" id="finalInput">
+<button onclick="finalCheck()">Submit</button>
+<p id="result"></p>
+`;
+}
+
+function finalCheck(){
+    let answer = document.getElementById("finalInput").value.trim().toLowerCase();
+    if(answer === "tel9"){
+        document.getElementById("result").innerHTML = "MEDIA INTEGRITY RESTORED ✅";
+    } else {
+        document.getElementById("result").innerHTML = "FRAGMENT REJECTED ❌";
+    }
+}
+
+</script>
+
+</body>
+</html>
