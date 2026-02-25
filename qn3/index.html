@@ -1,1 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Listening...</title>
 
+<style>
+body {
+    background: white;
+    color: black;
+    font-family: monospace;
+    text-align: center;
+    padding-top: 120px;
+    user-select: none;
+    transition: 0.2s;
+}
+
+#text {
+    font-size: 20px;
+    min-height: 60px;
+}
+
+.binary {
+    margin-top: 20px;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+#inputBox {
+    margin-top: 40px;
+    display: none;
+}
+
+input {
+    padding: 8px;
+    font-family: monospace;
+}
+
+button {
+    padding: 8px 14px;
+    margin-left: 5px;
+}
+
+.glitch {
+    background: black;
+    color: white;
+}
+</style>
+</head>
+<body>
+
+<div id="text"></div>
+
+<div class="binary" id="bin1">
+01101110<br>
+01100101<br>
+01110110<br>
+01100101<br>
+01110010
+</div>
+
+<div class="binary" id="bin2">
+01001100<br>
+01000101<br>
+01010100
+</div>
+
+<div id="inputBox">
+    <p>Enter final fragment:</p>
+    <input type="text" id="answer">
+    <button onclick="check()">Submit</button>
+    <p id="result"></p>
+</div>
+
+<script>
+
+document.addEventListener("contextmenu", e => e.preventDefault());
+
+document.onkeydown = function(e) {
+    if (e.keyCode === 123) return false;
+    if (e.ctrlKey && e.shiftKey && e.keyCode === 73) return false;
+    if (e.ctrlKey && e.shiftKey && e.keyCode === 74) return false;
+    if (e.ctrlKey && e.ctrlKey && e.keyCode === 85) return false;
+};
+
+let messages = [
+    "Listening...",
+    "Still listening.",
+    "Noise detected.",
+    "Trust patterns.",
+    "Not instructions."
+];
+
+let index = 0;
+
+function typeMessage() {
+    if (index < messages.length) {
+        document.getElementById("text").innerText = messages[index];
+        index++;
+        setTimeout(typeMessage, 2500);
+    }
+}
+
+typeMessage();
+
+setTimeout(() => {
+    document.getElementById("bin1").style.opacity = 1;
+}, 7000);
+
+setTimeout(() => {
+    glitch();
+}, 11000);
+
+setTimeout(() => {
+    document.getElementById("bin2").style.opacity = 1;
+}, 14000);
+
+setTimeout(() => {
+    document.getElementById("inputBox").style.display = "block";
+}, 19000);
+
+function glitch(){
+    document.body.classList.add("glitch");
+    setTimeout(() => {
+        document.body.classList.remove("glitch");
+    }, 300);
+}
+
+function check(){
+    let user = document.getElementById("answer").value;
+
+    if(user === "NEVER2LET1"){
+        document.getElementById("result").innerHTML = "Pattern Accepted.";
+    } else {
+        document.getElementById("result").innerHTML = "Pattern Rejected.";
+    }
+}
+
+</script>
+
+</body>
+</html>
