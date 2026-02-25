@@ -1,59 +1,100 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Encrypted Media Artifact</title>
+<title>Media Reconstruction Archive</title>
 
 <style>
 body {
-    background-color: black;
-    color: #00ff00;
-    font-family: monospace;
+    background: #0a0a0a;
+    color: #ff3c3c;
+    font-family: Arial, sans-serif;
+    text-align: center;
     padding: 60px;
     user-select: none;
 }
+
+.card {
+    border: 1px solid #ff3c3c;
+    padding: 30px;
+    margin: 20px auto;
+    width: 60%;
+    background: #111;
+    box-shadow: 0 0 15px #ff0000;
+}
+
 input {
-    background: black;
-    color: #00ff00;
-    border: 1px solid #00ff00;
-    padding: 6px;
-    margin-top: 10px;
+    background: #000;
+    border: 1px solid #ff3c3c;
+    color: #ff3c3c;
+    padding: 8px;
+    width: 60%;
 }
+
 button {
-    background: #00ff00;
+    background: #ff3c3c;
     color: black;
-    padding: 6px 12px;
     border: none;
+    padding: 8px 15px;
+    margin-left: 10px;
     cursor: pointer;
-    margin-left: 5px;
 }
-#terminal {
-    white-space: pre-wrap;
+
+.hidden {
+    display: none;
 }
+
 a {
-    color: #00ff00;
+    color: #ff3c3c;
 }
 </style>
 
 </head>
 <body>
 
-<div id="terminal">
-> Encrypted Media Artifact Detected:
-> Qhyhu jrqqd jlyh brx xs
+<div class="card">
+<h2>⚠ Archived Media Artifact Detected</h2>
+<p><strong>Qhyhu jrqqd jlyh brx xs</strong></p>
+<p>Cipher: Roman Shift of 3</p>
+<p>Decode to proceed.</p>
 
-> Cipher: Roman Shift of 3
-
-> Decode to proceed.
+<input type="text" id="decodeInput" placeholder="Enter decoded title">
+<button onclick="checkDecode()">Submit</button>
+<p id="decodeResult"></p>
 </div>
 
+<div id="stage2" class="card hidden">
+<h3>Media Identified</h3>
+<p>Source Link:</p>
+<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">
+https://www.youtube.com/watch?v=dQw4w9WgXcQ
+</a>
+
+<p style="margin-top:20px;">
+Temporal Key:
 <br>
+00:0(2^3 - 5):?
+<br>
+Last digit = vowel count of decoded title
+</p>
+</div>
 
-<input type="text" id="stage1" placeholder="Enter Decoded Title">
-<button onclick="decodeCheck()">Submit</button>
+<div id="stage3" class="card hidden">
+<h3>Extraction Protocol</h3>
+<p>
+At the computed timestamp,<br>
+extract the THIRD word spoken.
+</p>
 
-<div id="stage2"></div>
-<div id="stage3"></div>
-<div id="final"></div>
+<p>
+Corruption Rule:<br>
+Invert the word.<br>
+Append its length squared.
+</p>
+
+<input type="text" id="finalAnswer" placeholder="Restore fragment">
+<button onclick="checkFinal()">Submit</button>
+<p id="finalResult"></p>
+</div>
 
 <script>
 
@@ -66,52 +107,23 @@ document.onkeydown = function(e) {
     if (e.ctrlKey && e.keyCode === 85) return false;
 };
 
-function decodeCheck(){
-    let input = document.getElementById("stage1").value.trim().toLowerCase();
+function checkDecode(){
+    let input = document.getElementById("decodeInput").value.trim().toLowerCase();
     if(input === "never gonna give you up"){
-        document.getElementById("stage2").innerHTML = `
-
-> Media Identified.
-> Source Link:
-> <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">
-> https://www.youtube.com/watch?v=dQw4w9WgXcQ
-> </a>
-
-> Temporal Key Initiated...
-
-> 00:0(2^3 - 5):?
-> Last digit = vowel count of decoded title
-
-`;
-        showTimestampStage();
+        document.getElementById("decodeResult").innerHTML = "Artifact Decoded ✅";
+        document.getElementById("stage2").classList.remove("hidden");
+        document.getElementById("stage3").classList.remove("hidden");
     } else {
-        alert("ACCESS DENIED");
+        document.getElementById("decodeResult").innerHTML = "Decoding Failed ❌";
     }
 }
 
-function showTimestampStage(){
-    document.getElementById("stage3").innerHTML = `
-
-> At the computed timestamp,
-> extract the THIRD word spoken.
-
-> Invert the word.
-> Append its length squared.
-
-> Restore fragment:
-<br>
-<input type="text" id="finalInput">
-<button onclick="finalCheck()">Submit</button>
-<p id="result"></p>
-`;
-}
-
-function finalCheck(){
-    let answer = document.getElementById("finalInput").value.trim().toLowerCase();
+function checkFinal(){
+    let answer = document.getElementById("finalAnswer").value.trim().toLowerCase();
     if(answer === "tel9"){
-        document.getElementById("result").innerHTML = "MEDIA INTEGRITY RESTORED ✅";
+        document.getElementById("finalResult").innerHTML = "Archive Restored ✔";
     } else {
-        document.getElementById("result").innerHTML = "FRAGMENT REJECTED ❌";
+        document.getElementById("finalResult").innerHTML = "Fragment Invalid ❌";
     }
 }
 
